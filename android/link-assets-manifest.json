@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/antique_book_cover.otf",
+      "sha1": "dffef41a4c1a8239a8f9728708423461b05805e4"
+    },
+    {
+      "path": "assets/fonts/PumkinGarden.ttf",
+      "sha1": "db9266206f21d1edbd47a4236f7b7621522649b2"
+    },
+    {
+      "path": "assets/fonts/The Constellation.ttf",
+      "sha1": "30298e841a52746abdf102397ff075a2b209b1c6"
+    }
+  ]
+}
