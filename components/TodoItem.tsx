@@ -1,10 +1,14 @@
 import React, { useRef, useEffect } from 'react';
 import { Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { Todo, Priority } from '../assets/types';
+
+
 
 interface TodoItemProps {
-  todo: { id: string; text: string };
+  todo: Todo;
   onDelete: (id: string) => void;
 }
+
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete }) => {
   // Create an animated value starting at 0
@@ -25,6 +29,8 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete }) => {
   return (
     <Animated.View style={{ ...styles.todoItem, opacity: fadeAnim }}>
       <Text style={styles.text}>{todo.text}</Text>
+      <Text style={styles.details}>Deadline: {todo.deadline}</Text>
+        <Text style={styles.details}>Priority: {todo.priority}</Text>
       <TouchableOpacity onPress={() => onDelete(todo.id)} style={styles.deleteButton}>
         <Text style={styles.deleteButtonText}>Delete</Text>
       </TouchableOpacity>
@@ -55,6 +61,11 @@ const styles = StyleSheet.create({
   deleteButtonText: {
     color: '#fff',
     fontFamily: 'antique_book_cover'
+  },
+  details: {
+    fontSize: 14,
+    color: '#666', // Example style, adjust as needed
+    marginTop: 4, // Adds a little space above the details text
   },
 });
 
