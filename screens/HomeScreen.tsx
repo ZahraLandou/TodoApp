@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, FlatList, StyleSheet, Text} from 'react-native';
+import { View, TextInput, Button, FlatList, StyleSheet, Text } from 'react-native';
 import TodoItem from '../components/TodoItem';
 import { Todo, Priority } from '../assets/types';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const HomeScreen: React.FC = () => {
-const [showDatePicker, setShowDatePicker] = useState(false);
-const [deadline, setDeadline] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [deadline, setDeadline] = useState(new Date());
   const [priority, setPriority] = useState<Priority>(Priority.Low);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState('');
+  // Function to toggle the completed status
+  const toggleComplete = (id: string) => {
+    setTodos(
+      todos.map(todo => {
+        if (todo.id === id) {
+          return { ...todo, completed: !todo.completed };
+        }
+        return todo;
+      })
+    );
+  };
 
   const addTodo = () => {
     if (!inputValue.trim()) return;
@@ -19,10 +30,11 @@ const [deadline, setDeadline] = useState(new Date());
       text: inputValue.trim(),
       deadline: deadline,
       priority: priority,
+      completed: false
     };
     setTodos([...todos, newTodo]);
     setInputValue('');
-        // Optionally reset deadline to current date or leave as is
+    // Optionally reset deadline to current date or leave as is
 
   };
 
@@ -52,10 +64,10 @@ const [deadline, setDeadline] = useState(new Date());
           }}
         />
       )}
-            <Text>Priority:</Text>
+      <Text>Priority:</Text>
       <Picker
         selectedValue={priority}
-        style={{height: 50, width: 150}}
+        style={{ height: 50, width: 150 }}
         onValueChange={(itemValue) => setPriority(itemValue)}
       >
         <Picker.Item label="High" value={Priority.High} />
@@ -66,7 +78,7 @@ const [deadline, setDeadline] = useState(new Date());
       <FlatList
         data={todos}
         renderItem={({ item }) => (
-          <TodoItem todo={item} onDelete={deleteTodo} />
+          <TodoItem todo={item} onDelete={deleteTodo} onToggleComplete={toggleComplete} />
         )}
         keyExtractor={item => item.id}
       />
