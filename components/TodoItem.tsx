@@ -29,7 +29,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete }) => {
   return (
     <Animated.View style={{ ...styles.todoItem, opacity: fadeAnim }}>
       <Text style={styles.text}>{todo.text}</Text>
-      <Text style={styles.details}>Deadline: {todo.deadline}</Text>
+      <Text>Deadline: {todo.deadline.toDateString()}</Text>
         <Text style={styles.details}>Priority: {todo.priority}</Text>
       <TouchableOpacity onPress={() => onDelete(todo.id)} style={styles.deleteButton}>
         <Text style={styles.deleteButtonText}>Delete</Text>

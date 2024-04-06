@@ -3,9 +3,11 @@ import { View, TextInput, Button, FlatList, StyleSheet, Text} from 'react-native
 import TodoItem from '../components/TodoItem';
 import { Todo, Priority } from '../assets/types';
 import { Picker } from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const HomeScreen: React.FC = () => {
-  const [deadline, setDeadline] = useState('');
+const [showDatePicker, setShowDatePicker] = useState(false);
+const [deadline, setDeadline] = useState(new Date());
   const [priority, setPriority] = useState<Priority>(Priority.Low);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -20,7 +22,8 @@ const HomeScreen: React.FC = () => {
     };
     setTodos([...todos, newTodo]);
     setInputValue('');
-    setDeadline(''); // Reset deadline
+        // Optionally reset deadline to current date or leave as is
+
   };
 
   const deleteTodo = (id: string) => {
@@ -35,12 +38,20 @@ const HomeScreen: React.FC = () => {
         value={inputValue}
         placeholder="Add new todo..."
       />
-      <TextInput
-        style={styles.input}
-        onChangeText={setDeadline}
-        value={deadline}
-        placeholder="Deadline (YYYY-MM-DD)"
-      />
+      <Button onPress={() => setShowDatePicker(true)} title="Choose Deadline" />
+      {showDatePicker && (
+        <DateTimePicker
+          value={deadline}
+          mode="date"
+          display="default"
+          onChange={(event, selectedDate) => {
+            setShowDatePicker(false);
+            if (selectedDate) {
+              setDeadline(selectedDate);
+            }
+          }}
+        />
+      )}
             <Text>Priority:</Text>
       <Picker
         selectedValue={priority}
