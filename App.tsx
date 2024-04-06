@@ -1,29 +1,25 @@
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+//import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
-  View,
 } from 'react-native';
 
-import {
+/* import {
   Colors,
   DebugInstructions,
   Header,
   LearnMoreLinks,
   ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+} from 'react-native/Libraries/NewAppScreen'; */
 
-import HomeScreen from './screens/HomeScreen';
+//import HomeScreen from './screens/HomeScreen';
+import MainScreen from './screens/MainScreen';
 
 const App: React.FC = () => {
   return (
     <SafeAreaView style={styles.appContainer}>
-      <HomeScreen />
+      <MainScreen />
     </SafeAreaView>
   );
 };
