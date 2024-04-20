@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   details: {
     fontSize: 14,
-    color: '#666', // Example style, adjust as needed
+    color: '#666', 
     marginTop: 4, // Adds a little space above the details text
   },
   completedText: {
