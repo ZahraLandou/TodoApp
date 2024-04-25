@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './HomeScreen'; 
  import AddTodoScreen from './AddTodoScreen';
  import { TodosContext } from '../components/TodosContext'; 
- import { Todo, Priority } from '../assets/types';
+ import { Todo, Priority,RootTabParamList } from '../assets/types';
 
 /*import CalendarScreen from './CalendarScreen';
 import ParametersScreen from './ParametersScreen'; */
@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 //import { MaterialCommunityIcons } from 'react-MaterialCommunityIcons-vector-icons';
 import DummyScreen from './DummyScreen';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootTabParamList>();
 
 function MainScreen() {
 

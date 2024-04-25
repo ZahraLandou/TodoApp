@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, FlatList, StyleSheet, Text, ImageBackground } from 'react-native';
 import { useTodos } from '../components/TodosContext'; 
+import { useNavigation } from '@react-navigation/native';
+import MainScreen from './MainScreen';
 
 import TodoItem from '../components/TodoItem';
-import { Todo, Priority } from '../assets/types';
+import { Todo, Priority, RootTabParamList} from '../assets/types';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 const AddTodoScreen: React.FC = () => {
+    const navigation = useNavigation<BottomTabNavigationProp<RootTabParamList>>();
     const { addTodo } = useTodos();
- // const [text, setText] = useState('');
   const [deadline, setDeadline] = useState(new Date());
   const [priority, setPriority] = useState<Priority>(Priority.Low);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -32,6 +35,7 @@ const AddTodoScreen: React.FC = () => {
     // Call addTodo from the context with current state values
     addTodo(inputValue.trim(), deadline, priority);
     setInputValue(''); // Reset the input value
+    navigation.navigate('Home');
   };
 
 
@@ -70,7 +74,6 @@ const AddTodoScreen: React.FC = () => {
       <Text style={styles.label}>Priority:</Text>
       <Picker
         selectedValue={priority}
-        //style={{ height: 50, width: 150, }}
         onValueChange={(itemValue) => setPriority(itemValue)}
         style={styles.picker}
       >
@@ -79,13 +82,6 @@ const AddTodoScreen: React.FC = () => {
         <Picker.Item label="Low" value={Priority.Low} />
       </Picker>
       <Button title="Create" onPress={handleAddTodo} color="#629EB0" />
-{/*       <FlatList
-        data={todos}
-        renderItem={({ item }) => (
-          <TodoItem todo={item} onDelete={deleteTodo} onToggleComplete={toggleComplete} />
-        )}
-        keyExtractor={item => item.id}
-      /> */}
     </View>
     </ImageBackground>
 
@@ -105,7 +101,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10, */
     backgroundColor: 'rgba(255, 255, 255, 0.3)', // Slightly transparent white
     color: 'white', // Text color
-    borderBottomColor: 'purple', // Purple line for the input bottom
+    borderBottomColor: '#629EB0', // Purple line for the input bottom
     borderBottomWidth: 1,
     marginBottom: 20,
   },
