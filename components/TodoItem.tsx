@@ -1,9 +1,20 @@
 import React, { useRef, useEffect } from 'react';
-import { Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import { Todo, Priority } from '../assets/types';
 
 import Checkbox from '@react-native-community/checkbox'; // checkbox component 
+import Icon from 'react-native-vector-icons/FontAwesome'; // Import FontAwesome or another icon set if preferred
 
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-US', {
+    weekday: 'short', month: 'short', day: 'numeric'
+  });
+};
+const priorityLabel = {
+  'High': 'H',
+  'Medium': 'M',
+  'Low': 'L',
+};
 
 interface TodoItemProps {
   todo: Todo;
@@ -33,45 +44,95 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete, onToggleComplete })
     : styles.text;
 
   return (
-    <Animated.View style={{ ...styles.todoItem, opacity: fadeAnim }}>
+    <Animated.View style={[styles.todoItem, {opacity: fadeAnim }]}>
       <Checkbox
         value={todo.completed}
         onValueChange={(newValue) => onToggleComplete(todo.id)}
       />
-      <Text style={textStyle}>{todo.text}</Text>
-      <Text>Deadline: {todo.deadline.toDateString()}</Text>
-      <Text style={styles.details}>Priority: {todo.priority}</Text>
+      <View style={styles.todoContent}>
+
+      <Text style={[styles.text, todo.completed && styles.completed]}>{todo.text}</Text>
+      <View style={styles.metadata}>
+          <Text style={styles.deadline}>{formatDate(todo.deadline)}</Text>
+          <Text style={styles.priority}>{priorityLabel[todo.priority]}</Text>
+        </View>
+        </View>
+ {/*      <Text>Deadline: {todo.deadline.toDateString()}</Text>
+      <Text style={styles.details}>Priority: {todo.priority}</Text> */}
       <TouchableOpacity onPress={() => onDelete(todo.id)} style={styles.deleteButton}>
-        <Text style={styles.deleteButtonText}>Delete</Text>
+        {/* <Text style={styles.deleteButtonText}> 🪐 Delete</Text> */}
+        <Icon name="trash-o" size={24} color="#6e6e6e" />
+       
       </TouchableOpacity>
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
+  },
   todoItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f9c2ff',
+    backgroundColor: '#C1DEC2',//#8a2be2',#cddfdf nice color
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-    justifyContent: 'space-between',
-    borderRadius: 5, // Added for visual appeal
+    //justifyContent: 'space-between',
+    borderRadius: 10, // Added for visual appeal
+    borderWidth: 1,
+    borderColor: '#E3FBE3', //'#7b68ee', // Slightly lighter purple border
+    shadowColor: '#fff', // White glow effect
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  todoContent: {
+    flex: 1,
   },
   text: {
-    fontSize: 20,
-    fontFamily: 'The Constellation'
+    fontSize: 16,
+    color: '#333',
+    //fontFamily: 'The Constellation'
   },
   deleteButton: {
-    backgroundColor: '#ff6347',
-    padding: 10,
-    borderRadius: 5, // Added for visual appeal
+    //backgroundColor: '#ff6347',
+    padding: 8,
+    //borderRadius: 5, // Added for visual appeal
   },
-  deleteButtonText: {
+  metadata: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 4,
+  },
+  deadline: {
+    fontSize: 12,
+    color: '#555',
+  },
+  priority: {
+    fontSize: 12,
+    color: '#555',
+  },
+  completed: {
+    textDecorationLine: 'line-through',
+  },
+/*   deleteButtonText: {
     color: '#fff',
-    fontFamily: 'antique_book_cover'
-  },
+    //fontFamily: 'antique_book_cover'
+  }, */
   details: {
     fontSize: 14,
     color: '#666', 
