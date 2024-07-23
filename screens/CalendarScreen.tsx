@@ -22,7 +22,7 @@ const CalendarScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Calendar
-        onDayPress={(day) => {
+        onDayPress={(day: { dateString: React.SetStateAction<string>; }) => {
           setSelectedDate(day.dateString);
         }}
         markedDates={{
