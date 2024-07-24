@@ -16,6 +16,6 @@ export interface Todo {
     Home: undefined;
     AddTodo: { selectedDate: string };
     Calendar: undefined;
-    Parameters: undefined;
+    Statistics: undefined;
   };
   
