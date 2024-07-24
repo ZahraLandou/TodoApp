@@ -1,28 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, FlatList, StyleSheet, Text, ImageBackground } from 'react-native';
-import { useTodos } from '../components/TodosContext'; 
+import { View, TextInput, Button, StyleSheet, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import { useTodos } from '../components/TodosContext';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import MainScreen from './MainScreen';
-
-import TodoItem from '../components/TodoItem';
-import { Todo, Priority, RootTabParamList} from '../assets/types';
+import { RootTabParamList, Priority } from '../assets/types';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // For icons
 
 type AddTodoScreenRouteProp = RouteProp<RootTabParamList, 'AddTodo'>;
 
-
 const AddTodoScreen: React.FC = () => {
-    //const navigation = useNavigation<BottomTabNavigationProp<RootTabParamList>>();
-    const { addTodo } = useTodos();
-    const navigation = useNavigation();
+  const { addTodo } = useTodos();
+  const navigation = useNavigation();
   const route = useRoute<AddTodoScreenRouteProp>();
   const selectedDate = route.params?.selectedDate;
 
-  const [deadline, setDeadline] = useState(new Date());
-  const [priority, setPriority] = useState<Priority>(Priority.Low);
   const [inputValue, setInputValue] = useState('');
+  const [priority, setPriority] = useState<Priority>(Priority.Low);
+  const [deadline, setDeadline] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   useEffect(() => {
     if (selectedDate) {
@@ -30,20 +26,6 @@ const AddTodoScreen: React.FC = () => {
     }
   }, [selectedDate]);
 
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  // Function to toggle the completed status
-/*   const toggleComplete = (id: string) => {
-    setTodos(
-      todos.map(todo => {
-        if (todo.id === id) {
-          return { ...todo, completed: !todo.completed };
-        }
-        return todo;
-      })
-    );
-  }; */
   const handleAddTodo = () => {
     if (!inputValue.trim()) return;
     addTodo(inputValue.trim(), deadline, priority);
@@ -51,91 +33,116 @@ const AddTodoScreen: React.FC = () => {
     navigation.goBack();
   };
 
-
-/*   const deleteTodo = (id: string) => {
-    setTodos(todos.filter(todo => todo.id !== id));
-  }; */
-
   return (
     <ImageBackground 
-    source={require('../assets/backgrounds/feathers.jpeg')} 
-    style={styles.backgroundImage}
-  >
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.input}
-        onChangeText={setInputValue}
-        value={inputValue}
-        placeholder="Write a task"
-        placeholderTextColor="#cccccc"
-      />
-      <Button onPress={() => setShowDatePicker(true)} title="Deadline" color="#508991" />
-      {showDatePicker && (
-        <DateTimePicker
-          value={deadline}
-          mode="date"
-          display="default"
-          onChange={(event, selectedDate) => {
-            setShowDatePicker(false);
-            if (selectedDate) {
-              setDeadline(selectedDate);
-            }
-          }}
-          
+      source={require('../assets/backgrounds/feathers.jpeg')}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          onChangeText={setInputValue}
+          value={inputValue}
+          placeholder="Write a task"
+          placeholderTextColor="#cccccc"
         />
-      )}
-      <Text style={styles.label}>Priority:</Text>
-      <Picker
-        selectedValue={priority}
-        onValueChange={(itemValue) => setPriority(itemValue)}
-        style={styles.picker}
-      >
-        <Picker.Item label="High" value={Priority.High} />
-        <Picker.Item label="Medium" value={Priority.Medium} />
-        <Picker.Item label="Low" value={Priority.Low} />
-      </Picker>
-      <Button title="Create" onPress={handleAddTodo} color="#629EB0" />
-    </View>
+        <TouchableOpacity
+          style={styles.deadlineButton}
+          onPress={() => setShowDatePicker(true)}
+        >
+          <Text style={styles.deadlineButtonText}>DEADLINE</Text>
+          <Icon name="calendar" size={24} color="#fff" />
+        </TouchableOpacity>
+        {showDatePicker && (
+          <DateTimePicker
+            value={deadline}
+            mode="date"
+            display="default"
+            onChange={(event, selectedDate) => {
+              setShowDatePicker(false);
+              if (selectedDate) {
+                setDeadline(selectedDate);
+              }
+            }}
+          />
+        )}
+        <Text style={styles.label}>Priority:</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={priority}
+            onValueChange={(itemValue) => setPriority(itemValue)}
+            style={styles.picker}
+          >
+            <Picker.Item label="High" value={Priority.High} />
+            <Picker.Item label="Medium" value={Priority.Medium} />
+            <Picker.Item label="Low" value={Priority.Low} />
+          </Picker>
+        </View>
+        <TouchableOpacity style={styles.createButton} onPress={handleAddTodo}>
+          <Text style={styles.createButtonText}>CREATE</Text>
+        </TouchableOpacity>
+      </View>
     </ImageBackground>
-
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  backgroundImage: {
     flex: 1,
-    marginTop: 20,
-  },
-  input: {
-/*     margin: 15,
-    height: 40,
-    borderColor: '#8470FF',
-    borderWidth: 1,
-    paddingLeft: 10, */
-    backgroundColor: 'rgba(255, 255, 255, 0.3)', // Slightly transparent white
-    color: 'white', // Text color
-    borderBottomColor: '#629EB0', // Purple line for the input bottom
-    borderBottomWidth: 1,
-    marginBottom: 20,
+    resizeMode: 'cover',
   },
   inputContainer: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent overlay
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     padding: 20,
     borderRadius: 10,
     margin: 20,
+    elevation: 5,
   },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',    
-  },
-  picker: {
-    color: 'white', // Text color inside picker
+  input: {
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    color: 'white',
+    borderBottomColor: '#629EB0',
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    borderRadius: 10,
+    padding: 10,
+  },
+  deadlineButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#629EB0',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 20,
+  },
+  deadlineButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
   label: {
-    color: 'white', // Labels color
+    color: 'white',
     marginBottom: 10,
-  }
+    fontSize: 16,
+  },
+  pickerContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  picker: {
+    color: 'white',
+  },
+  createButton: {
+    backgroundColor: '#629EB0',
+    borderRadius: 10,
+    padding: 15,
+    alignItems: 'center',
+  },
+  createButtonText: {
+    color: 'white',
+    fontSize: 16,
+  },
 });
 
 export default AddTodoScreen;
