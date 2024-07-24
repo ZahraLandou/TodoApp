@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator, BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import HomeScreen from './HomeScreen'; 
  import AddTodoScreen from './AddTodoScreen';
  import { TodosContext } from '../components/TodosContext'; 

@@ -1,16 +1,24 @@
 // CalendarScreen.tsx
 import React, { useState } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity, Text } from 'react-native';
-import { Calendar } from 'react-native-calendars'; // Import the calendar component
+import { Calendar } from 'react-native-calendars';
 import { useTodos } from '../components/TodosContext';
 import TodoItem from '../components/TodoItem';
-import MainScreen from './MainScreen';
 import { useNavigation } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { Todo, Priority, RootTabParamList} from '../assets/types';
+import { Todo, Priority, RootTabParamList } from '../assets/types';
+
+// Define the type for the date object used in onDayPress
+type DateObject = {
+  dateString: string;
+  day: number;
+  month: number;
+  year: number;
+  timestamp: number;
+};
 
 const CalendarScreen: React.FC = () => {
-  const { todos, deleteTodo, toggleComplete} = useTodos();
+  const { todos, deleteTodo, toggleComplete } = useTodos();
   const [selectedDate, setSelectedDate] = useState('');
   const navigation = useNavigation<BottomTabNavigationProp<RootTabParamList>>();
 
@@ -22,7 +30,7 @@ const CalendarScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Calendar
-        onDayPress={(day: { dateString: React.SetStateAction<string>; }) => {
+        onDayPress={(day: DateObject) => {
           setSelectedDate(day.dateString);
         }}
         markedDates={{
@@ -36,8 +44,10 @@ const CalendarScreen: React.FC = () => {
         )}
         keyExtractor={item => item.id}
       />
-      
-      <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate('AddTodo')}>
+      <TouchableOpacity
+        style={styles.fab}
+        onPress={() => navigation.navigate('AddTodo', { selectedDate })}
+      >
         <Text style={styles.fabIcon}>+</Text>
       </TouchableOpacity>
     </View>
@@ -52,7 +62,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 20,
     bottom: 20,
-    backgroundColor: 'purple', // Theme color for the button
+    backgroundColor: 'purple',
     width: 56,
     height: 56,
     borderRadius: 28,

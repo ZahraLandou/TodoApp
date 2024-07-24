@@ -14,7 +14,7 @@ export interface Todo {
 
   export type RootTabParamList = {
     Home: undefined;
-    AddTodo: undefined;
+    AddTodo: { selectedDate: string };
     Calendar: undefined;
     Parameters: undefined;
   };

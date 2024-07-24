@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, FlatList, StyleSheet, Text, ImageBackground } from 'react-native';
 import { useTodos } from '../components/TodosContext'; 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import MainScreen from './MainScreen';
 
 import TodoItem from '../components/TodoItem';
@@ -10,17 +10,31 @@ import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
+type AddTodoScreenRouteProp = RouteProp<RootTabParamList, 'AddTodo'>;
+
+
 const AddTodoScreen: React.FC = () => {
-    const navigation = useNavigation<BottomTabNavigationProp<RootTabParamList>>();
+    //const navigation = useNavigation<BottomTabNavigationProp<RootTabParamList>>();
     const { addTodo } = useTodos();
+    const navigation = useNavigation();
+  const route = useRoute<AddTodoScreenRouteProp>();
+  const selectedDate = route.params?.selectedDate;
+
   const [deadline, setDeadline] = useState(new Date());
   const [priority, setPriority] = useState<Priority>(Priority.Low);
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState('');
 
+  useEffect(() => {
+    if (selectedDate) {
+      setDeadline(new Date(selectedDate));
+    }
+  }, [selectedDate]);
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [todos, setTodos] = useState<Todo[]>([]);
+
   // Function to toggle the completed status
-  const toggleComplete = (id: string) => {
+/*   const toggleComplete = (id: string) => {
     setTodos(
       todos.map(todo => {
         if (todo.id === id) {
@@ -29,19 +43,18 @@ const AddTodoScreen: React.FC = () => {
         return todo;
       })
     );
-  };
+  }; */
   const handleAddTodo = () => {
     if (!inputValue.trim()) return;
-    // Call addTodo from the context with current state values
     addTodo(inputValue.trim(), deadline, priority);
-    setInputValue(''); // Reset the input value
-    navigation.navigate('Home');
+    setInputValue('');
+    navigation.goBack();
   };
 
 
-  const deleteTodo = (id: string) => {
+/*   const deleteTodo = (id: string) => {
     setTodos(todos.filter(todo => todo.id !== id));
-  };
+  }; */
 
   return (
     <ImageBackground 
