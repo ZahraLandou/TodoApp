@@ -20,7 +20,7 @@ const HomeScreen: React.FC = () => {
 
   return (
     <ImageBackground 
-    source={require('../assets/backgrounds/cat_drawing.png')} 
+    source={require('../assets/backgrounds/cat_busy.jpeg')} 
     style={styles.backgroundImage}
   >
     <View style={styles.container}>
@@ -35,7 +35,7 @@ const HomeScreen: React.FC = () => {
           style={styles.fab}
           onPress={handleAddTodo}
         >
-          <Icon name="plus" size={24} color="#e6e6fa" />
+          <Icon name="plus" size={24} color="#9462BF" />
         </TouchableOpacity>
     </View>
     </ImageBackground>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       right: 20,
       bottom: 20,
-      backgroundColor: '#bcbcf2',
+      backgroundColor: '#FDEEF1',
       borderRadius: 28,
       elevation: 8,
       shadowColor: '#000',

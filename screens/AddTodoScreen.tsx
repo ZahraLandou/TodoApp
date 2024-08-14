@@ -5,7 +5,9 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { RootTabParamList, Priority } from '../assets/types';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // For icons
+//import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // For icons
+import Icon from 'react-native-vector-icons/Feather'; // For icons
+
 import { colors } from '../assets/theme';
 
 type AddTodoScreenRouteProp = RouteProp<RootTabParamList, 'AddTodo'>;

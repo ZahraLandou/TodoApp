@@ -29,7 +29,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete, onToggleComplete })
 
 
   useEffect(() => {
-    // Start the fade-in animation when the component mounts
     Animated.timing(
       fadeAnim, // The animated value to drive
       {
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
     //justifyContent: 'space-between',
     borderRadius: 10, // Added for visual appeal
     borderWidth: 1,
-    borderColor: '#E3FBE3', //'#7b68ee', // Slightly lighter purple border
+    borderColor: '#E3FBE3',
     shadowColor: '#fff', // White glow effect
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.8,
