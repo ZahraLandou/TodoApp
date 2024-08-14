@@ -6,14 +6,21 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Todo, Priority, RootTabParamList} from '../assets/types';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { colors } from '../assets/theme';
+
 
 const HomeScreen: React.FC = () => {
   const { todos, deleteTodo, toggleComplete } = useTodos();
   const navigation = useNavigation<BottomTabNavigationProp<RootTabParamList>>();
 
+  const handleAddTodo = () => {
+    const currentDate = new Date().toISOString().split('T')[0]; // Get the current date in YYYY-MM-DD format
+    navigation.navigate('AddTodo', { selectedDate: currentDate });
+  };
+
   return (
     <ImageBackground 
-    source={require('../assets/backgrounds/leaves.jpeg')} 
+    source={require('../assets/backgrounds/cat_drawing.png')} 
     style={styles.backgroundImage}
   >
     <View style={styles.container}>
@@ -26,9 +33,9 @@ const HomeScreen: React.FC = () => {
       />
     <TouchableOpacity
           style={styles.fab}
-          onPress={() => navigation.navigate('AddTodo')}
+          onPress={handleAddTodo}
         >
-          <Icon name="plus" size={24} color="#FFF" />
+          <Icon name="plus" size={24} color="#e6e6fa" />
         </TouchableOpacity>
     </View>
     </ImageBackground>
@@ -44,7 +51,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       right: 20,
       bottom: 20,
-      backgroundColor: '#305130',
+      backgroundColor: '#bcbcf2',
       borderRadius: 28,
       elevation: 8,
       shadowColor: '#000',

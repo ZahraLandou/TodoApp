@@ -6,6 +6,7 @@ import { RootTabParamList, Priority } from '../assets/types';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // For icons
+import { colors } from '../assets/theme';
 
 type AddTodoScreenRouteProp = RouteProp<RootTabParamList, 'AddTodo'>;
 
@@ -35,7 +36,7 @@ const AddTodoScreen: React.FC = () => {
 
   return (
     <ImageBackground 
-      source={require('../assets/backgrounds/feathers.jpeg')}
+      source={require('../assets/backgrounds/lavenderss.jpeg')}
       style={styles.backgroundImage}
     >
       <View style={styles.inputContainer}>
@@ -44,14 +45,14 @@ const AddTodoScreen: React.FC = () => {
           onChangeText={setInputValue}
           value={inputValue}
           placeholder="Write a task"
-          placeholderTextColor="#cccccc"
+          placeholderTextColor={colors.inputText}
         />
         <TouchableOpacity
           style={styles.deadlineButton}
           onPress={() => setShowDatePicker(true)}
         >
           <Text style={styles.deadlineButtonText}>DEADLINE</Text>
-          <Icon name="calendar" size={24} color="#fff" />
+          <Icon name="calendar" size={24} color={colors.buttonText}/>
         </TouchableOpacity>
         {showDatePicker && (
           <DateTimePicker
@@ -99,9 +100,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   input: {
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    color: 'white',
-    borderBottomColor: '#629EB0',
+    backgroundColor: colors.inputBackground,
+    color: colors.inputText,
+    borderBottomColor: '#bcbcf2',
     borderBottomWidth: 1,
     marginBottom: 20,
     borderRadius: 10,
@@ -111,36 +112,36 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#629EB0',
+    backgroundColor: '#bcbcf2',
     borderRadius: 10,
     padding: 15,
     marginBottom: 20,
   },
   deadlineButtonText: {
-    color: 'white',
+    color: colors.buttonText,
     fontSize: 16,
   },
   label: {
-    color: 'white',
+    color: colors.labelText,
     marginBottom: 10,
     fontSize: 16,
   },
   pickerContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    backgroundColor: colors.inputBackground,
     borderRadius: 10,
     marginBottom: 20,
   },
   picker: {
-    color: 'white',
+    color: colors.inputText,
   },
   createButton: {
-    backgroundColor: '#629EB0',
+    backgroundColor: '#bcbcf2',
     borderRadius: 10,
     padding: 15,
     alignItems: 'center',
   },
   createButtonText: {
-    color: 'white',
+    color: colors.buttonText,
     fontSize: 16,
   },
 });

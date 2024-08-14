@@ -9,3 +9,14 @@ export const theme = {
     },
   };
   
+// colors.ts
+export const colors = {
+  background: '#f5e1fd',
+  buttonBackground: '#d4a5ff',
+  buttonText: '#ffffff',
+  inputBackground: 'rgba(255, 255, 255, 0.3)',
+  inputText: '#ffffff',
+  labelText: '#ffffff',
+  calendarSelected: '#b197fc',
+  calendarMarked: '#b197fc',
+};

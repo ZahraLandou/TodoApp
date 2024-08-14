@@ -7,6 +7,7 @@ import TodoItem from '../components/TodoItem';
 import { useNavigation } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { Todo, Priority, RootTabParamList } from '../assets/types';
+import { ImageBackground } from 'react-native';
 
 // Define the type for the date object used in onDayPress
 type DateObject = {
@@ -28,13 +29,17 @@ const CalendarScreen: React.FC = () => {
   );
 
   return (
+    <ImageBackground 
+    source={require('../assets/backgrounds/cat_resting.jpeg')} 
+    style={styles.backgroundImage}
+  >
     <View style={styles.container}>
       <Calendar
         onDayPress={(day: DateObject) => {
           setSelectedDate(day.dateString);
         }}
         markedDates={{
-          [selectedDate]: { selected: true, marked: true, selectedColor: 'blue' },
+          [selectedDate]: { selected: true, marked: true, selectedColor: '#FDBFD3' },
         }}
       />
       <FlatList
@@ -51,6 +56,7 @@ const CalendarScreen: React.FC = () => {
         <Text style={styles.fabIcon}>+</Text>
       </TouchableOpacity>
     </View>
+    </ImageBackground>
   );
 };
 
@@ -62,7 +68,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 20,
     bottom: 20,
-    backgroundColor: 'purple',
+    backgroundColor: '#8ABBE6',
     width: 56,
     height: 56,
     borderRadius: 28,
@@ -78,6 +84,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'white',
   },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'center',    
+  }
 });
 
 export default CalendarScreen;

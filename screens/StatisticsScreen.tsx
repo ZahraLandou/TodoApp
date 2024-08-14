@@ -1,6 +1,6 @@
 // StatisticsScreen.tsx
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native';
 import { useTodos } from '../components/TodosContext';
 
 const StatisticsScreen: React.FC = () => {
@@ -15,6 +15,10 @@ const StatisticsScreen: React.FC = () => {
   const lowPriorityTasks = todos.filter(todo => todo.priority === 'Low').length;
 
   return (
+    <ImageBackground 
+    source={require('../assets/backgrounds/cat_resting.jpeg')} 
+    style={styles.backgroundImage}
+  >
     <View style={styles.container}>
       <Text style={styles.header}>Task Statistics</Text>
       <View style={styles.statContainer}>
@@ -42,6 +46,8 @@ const StatisticsScreen: React.FC = () => {
         <Text style={styles.statValue}>{lowPriorityTasks}</Text>
       </View>
     </View>
+    </ImageBackground>
+
   );
 };
 
@@ -68,6 +74,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',    
+  }
 });
 
 export default StatisticsScreen;
