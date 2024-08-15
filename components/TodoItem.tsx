@@ -49,19 +49,14 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete, onToggleComplete })
         onValueChange={(newValue) => onToggleComplete(todo.id)}
       />
       <View style={styles.todoContent}>
-
       <Text style={[styles.text, todo.completed && styles.completed]}>{todo.text}</Text>
       <View style={styles.metadata}>
           <Text style={styles.deadline}>{formatDate(todo.deadline)}</Text>
           <Text style={styles.priority}>{priorityLabel[todo.priority]}</Text>
         </View>
         </View>
- {/*      <Text>Deadline: {todo.deadline.toDateString()}</Text>
-      <Text style={styles.details}>Priority: {todo.priority}</Text> */}
       <TouchableOpacity onPress={() => onDelete(todo.id)} style={styles.deleteButton}>
-        {/* <Text style={styles.deleteButtonText}> 🪐 Delete</Text> */}
-        <Icon name="trash-o" size={24} color="#6e6e6e" />
-       
+        <Icon name="trash-o" size={24} color="#6e6e6e" />       
       </TouchableOpacity>
     </Animated.View>
   );
@@ -85,7 +80,7 @@ const styles = StyleSheet.create({
   todoItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#C1DEC2',//#8a2be2',#cddfdf nice color
+    backgroundColor: '#bcbcf2',//#8a2be2',#cddfdf nice color
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
@@ -103,14 +98,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
-    fontSize: 16,
+    fontSize: 17,
     color: '#333',
-    //fontFamily: 'The Constellation'
   },
   deleteButton: {
-    //backgroundColor: '#ff6347',
-    padding: 8,
-    //borderRadius: 5, // Added for visual appeal
+    padding: 8
   },
   metadata: {
     flexDirection: 'row',
@@ -128,10 +120,6 @@ const styles = StyleSheet.create({
   completed: {
     textDecorationLine: 'line-through',
   },
-/*   deleteButtonText: {
-    color: '#fff',
-    //fontFamily: 'antique_book_cover'
-  }, */
   details: {
     fontSize: 14,
     color: '#666', 

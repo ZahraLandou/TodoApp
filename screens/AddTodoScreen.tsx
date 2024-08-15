@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/Feather'; // For icons
 
 import { colors } from '../assets/theme';
 
-type AddTodoScreenRouteProp = RouteProp<RootTabParamList, 'AddTodo'>;
+type AddTodoScreenRouteProp = RouteProp<RootTabParamList, 'Add'>;
 
 const AddTodoScreen: React.FC = () => {
   const { addTodo } = useTodos();

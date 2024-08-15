@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Todo, Priority, RootTabParamList} from '../assets/types';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { colors } from '../assets/theme';
 
 
 const HomeScreen: React.FC = () => {
@@ -15,7 +14,7 @@ const HomeScreen: React.FC = () => {
 
   const handleAddTodo = () => {
     const currentDate = new Date().toISOString().split('T')[0]; // Get the current date in YYYY-MM-DD format
-    navigation.navigate('AddTodo', { selectedDate: currentDate });
+    navigation.navigate('Add', { selectedDate: currentDate });
   };
 
   return (
