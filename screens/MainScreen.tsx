@@ -1,16 +1,15 @@
+//MainScreen.tsx
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator, BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import HomeScreen from './HomeScreen'; 
- import AddTodoScreen from './AddTodoScreen';
- import { TodosContext } from '../components/TodosContext'; 
- import { Todo, Priority,RootTabParamList } from '../assets/types';
-
-/*import ParametersScreen from './ParametersScreen'; */
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
-//import { MaterialCommunityIcons } from 'react-MaterialCommunityIcons-vector-icons';
-import DummyScreen from './DummyScreen';
+import HomeScreen from './HomeScreen';
+import AddTodoScreen from './AddTodoScreen';
+import { TodosContext } from '../components/TodosContext';
+import { Todo, Priority, RootTabParamList } from '../assets/types';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHome, faPlusCircle, faCalendar, faChartBar, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import CalendarScreen from './CalendarScreen';
+import StatisticsScreen from './StatisticsScreen';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -43,36 +42,36 @@ function MainScreen() {
         return todo;
       })
     );
-  };  
+  };
   return (
     <TodosContext.Provider value={{ todos, addTodo, deleteTodo, toggleComplete }}>
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName:string;
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let icon;
 
-            if (route.name === 'Home') {
-              iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'AddTodo') {
-              iconName = focused ? 'plus-circle' : 'plus-circle-outline';
-            } else if (route.name === 'Calendar') {
-              iconName = focused ? 'calendar' : 'calendar-outline';
-            } else if (route.name === 'Parameters') {
-              iconName = focused ? 'cog' : 'cog-outline';
-            }else{
-                iconName = 'alert'
-            }
-            return <Icon name={iconName} size={size} color={color} />;
-          },
-        })}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="AddTodo" component={AddTodoScreen} />
-        <Tab.Screen name="Calendar" component={CalendarScreen} />
-        <Tab.Screen name="Parameters" component={DummyScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+              if (route.name === 'Home') {
+                icon = faHome;
+              } else if (route.name === 'Add') {
+                icon = faPlusCircle;
+              } else if (route.name === 'Calendar') {
+                icon = faCalendar;
+              } else if (route.name === 'Statistics') {
+                icon = faChartBar;
+              } else {
+                icon = faQuestionCircle;  // Fallback icon in case the route name doesn't match
+              }
+              return <FontAwesomeIcon icon={icon} size={size} color={color} />;
+            },
+          })}
+        >
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Add" component={AddTodoScreen} options={{ title: 'New Task' }} />
+          <Tab.Screen name="Calendar" component={CalendarScreen} />
+          <Tab.Screen name="Statistics" component={StatisticsScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
     </TodosContext.Provider>
 
   );
