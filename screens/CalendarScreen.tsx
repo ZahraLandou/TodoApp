@@ -8,7 +8,8 @@ import { useNavigation } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { Todo, Priority, RootTabParamList } from '../assets/types';
 import { ImageBackground } from 'react-native';
-
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';  // Import the specific icon
 // Define the type for the date object used in onDayPress
 type DateObject = {
   dateString: string;
@@ -53,7 +54,8 @@ const CalendarScreen: React.FC = () => {
           style={styles.fab}
           onPress={() => navigation.navigate('Add', { selectedDate })}
         >
-          <Text style={styles.fabIcon}>+</Text>
+          <FontAwesomeIcon icon={faPlus} size={24} color="#9462BF" />  
+
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -79,10 +81,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowColor: 'black',
     shadowOffset: { height: 2, width: 2 },
-  },
-  fabIcon: {
-    fontSize: 24,
-    color: 'white',
   },
   backgroundImage: {
     flex: 1,
