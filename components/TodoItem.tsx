@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native'
 import { Todo, Priority } from '../assets/types';
 
 import Checkbox from '@react-native-community/checkbox'; // checkbox component 
-import Icon from 'react-native-vector-icons/FontAwesome'; // Import FontAwesome or another icon set if preferred
+import Icon from 'react-native-vector-icons/FontAwesome'; // Import FontAwesome icon set
 
 const formatDate = (date: Date) => {
   return date.toLocaleDateString('en-US', {
@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-    //justifyContent: 'space-between',
     borderRadius: 10, // Added for visual appeal
     borderWidth: 1,
     borderColor: '#E3FBE3',
