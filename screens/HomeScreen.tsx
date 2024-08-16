@@ -3,10 +3,10 @@ import { View, FlatList, StyleSheet, ImageBackground, TouchableOpacity, Text } f
 import TodoItem from '../components/TodoItem';
 import { useTodos } from '../components/TodosContext';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Todo, Priority, RootTabParamList } from '../assets/types';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';  // Import the specific icon
 
 const HomeScreen: React.FC = () => {
   const { todos, deleteTodo, toggleComplete } = useTodos();
@@ -34,8 +34,8 @@ const HomeScreen: React.FC = () => {
           style={styles.fab}
           onPress={handleAddTodo}
         >
-          <Icon name="plus" size={24} color="#9462BF" />
-        </TouchableOpacity>
+          <FontAwesomeIcon icon={faPlus} size={24} color="#9462BF" />  
+          </TouchableOpacity>
       </View>
     </ImageBackground>
   );

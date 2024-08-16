@@ -7,8 +7,6 @@ import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/Feather'; // For calendar icon
 
-import { colors } from '../assets/theme';
-
 type AddTodoScreenRouteProp = RouteProp<RootTabParamList, 'Add'>;
 
 const AddTodoScreen: React.FC = () => {
@@ -46,14 +44,14 @@ const AddTodoScreen: React.FC = () => {
           onChangeText={setInputValue}
           value={inputValue}
           placeholder="Write a task"
-          placeholderTextColor={colors.inputText}
+          placeholderTextColor={'#ffffff'}
         />
         <TouchableOpacity
           style={styles.deadlineButton}
           onPress={() => setShowDatePicker(true)}
         >
           <Text style={styles.deadlineButtonText}>DEADLINE</Text>
-          <Icon name="calendar" size={24} color={colors.buttonText}/>
+          <Icon name="calendar" size={24} color={'#ffffff'}/>
         </TouchableOpacity>
         {showDatePicker && (
           <DateTimePicker
@@ -101,8 +99,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   input: {
-    backgroundColor: colors.inputBackground,
-    color: colors.inputText,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    color: '#ffffff',
     borderBottomColor: '#bcbcf2',
     borderBottomWidth: 1,
     marginBottom: 20,
@@ -119,21 +117,21 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   deadlineButtonText: {
-    color: colors.buttonText,
+    color: '#ffffff',
     fontSize: 16,
   },
   label: {
-    color: colors.labelText,
+    color: '#ffffff',
     marginBottom: 10,
     fontSize: 16,
   },
   pickerContainer: {
-    backgroundColor: colors.inputBackground,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
     borderRadius: 10,
     marginBottom: 20,
   },
   picker: {
-    color: colors.inputText,
+    color: '#ffffff',
   },
   createButton: {
     backgroundColor: '#bcbcf2',
@@ -142,7 +140,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   createButtonText: {
-    color: colors.buttonText,
+    color: '#ffffff',
     fontSize: 16,
   },
 });
