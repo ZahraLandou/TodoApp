@@ -2,16 +2,12 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator, BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import HomeScreen from './HomeScreen'; 
+import HomeScreen from './HomeScreen';
 import AddTodoScreen from './AddTodoScreen';
-import { TodosContext } from '../components/TodosContext'; 
-import { Todo, Priority,RootTabParamList } from '../assets/types';
-
+import { TodosContext } from '../components/TodosContext';
+import { Todo, Priority, RootTabParamList } from '../assets/types';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHome, faPlusCircle, faCalendar, faChartBar, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
-
-
-//import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
 import CalendarScreen from './CalendarScreen';
 import StatisticsScreen from './StatisticsScreen';
 
@@ -46,11 +42,11 @@ function MainScreen() {
         return todo;
       })
     );
-  };  
+  };
   return (
     <TodosContext.Provider value={{ todos, addTodo, deleteTodo, toggleComplete }}>
-    <NavigationContainer>
-    <Tab.Navigator
+      <NavigationContainer>
+        <Tab.Navigator
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let icon;
@@ -70,12 +66,12 @@ function MainScreen() {
             },
           })}
         >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Add" component={AddTodoScreen} options={{ title: 'New Task' }}/>
-        <Tab.Screen name="Calendar" component={CalendarScreen} />
-        <Tab.Screen name="Statistics" component={StatisticsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Add" component={AddTodoScreen} options={{ title: 'New Task' }} />
+          <Tab.Screen name="Calendar" component={CalendarScreen} />
+          <Tab.Screen name="Statistics" component={StatisticsScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
     </TodosContext.Provider>
 
   );

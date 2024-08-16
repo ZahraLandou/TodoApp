@@ -29,33 +29,33 @@ const CalendarScreen: React.FC = () => {
   );
 
   return (
-    <ImageBackground 
-    source={require('../assets/backgrounds/cat_resting.jpeg')} 
-    style={styles.backgroundImage}
-  >
-    <View style={styles.container}>
-      <Calendar
-        onDayPress={(day: DateObject) => {
-          setSelectedDate(day.dateString);
-        }}
-        markedDates={{
-          [selectedDate]: { selected: true, marked: true, selectedColor: '#FDBFD3' },
-        }}
-      />
-      <FlatList
-        data={todosForSelectedDate}
-        renderItem={({ item }) => (
-          <TodoItem todo={item} onDelete={deleteTodo} onToggleComplete={toggleComplete} />
-        )}
-        keyExtractor={item => item.id}
-      />
-      <TouchableOpacity
-        style={styles.fab}
-        onPress={() => navigation.navigate('AddTodo', { selectedDate })}
-      >
-        <Text style={styles.fabIcon}>+</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground
+      source={require('../assets/backgrounds/cat_resting.jpeg')}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        <Calendar
+          onDayPress={(day: DateObject) => {
+            setSelectedDate(day.dateString);
+          }}
+          markedDates={{
+            [selectedDate]: { selected: true, marked: true, selectedColor: '#FDBFD3' },
+          }}
+        />
+        <FlatList
+          data={todosForSelectedDate}
+          renderItem={({ item }) => (
+            <TodoItem todo={item} onDelete={deleteTodo} onToggleComplete={toggleComplete} />
+          )}
+          keyExtractor={item => item.id}
+        />
+        <TouchableOpacity
+          style={styles.fab}
+          onPress={() => navigation.navigate('Add', { selectedDate })}
+        >
+          <Text style={styles.fabIcon}>+</Text>
+        </TouchableOpacity>
+      </View>
     </ImageBackground>
   );
 };
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: 'center',    
+    resizeMode: 'center',
   }
 });
 
